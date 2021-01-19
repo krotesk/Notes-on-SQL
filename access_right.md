@@ -79,3 +79,63 @@ FLUSH PRIVILEGES;
 ```
 SHOW GRANTS FOR 'example'@'localhost';
 ```
+
+## Сброс пароля root
+
+1. Сначала выполнить следующие команды bash
+
+```
+sudo /etc/init.d/mysql stop
+sudo mysqld_safe --skip-grant-tables &
+# enter -> go
+mysql -uroot
+```
+Это запустит mysql без пароля
+
+2. Затем выполнить mysql команды => скопируйте и вставьте это в cli вручную
+
+```
+use mysql;
+update user set authentication_string=PASSWORD("") where User='root';
+update user set plugin="mysql_native_password" where User='root';
+
+flush privileges;
+quit;
+```
+
+Установит пустой пароль и перезагрузит привилегии
+
+3. Выполнить несколько команд bash
+
+```
+sudo /etc/init.d/mysql stop
+sudo /etc/init.d/mysql start
+mysql -u root -p
+```
+
+## Смена пароля пользователя
+
+Свой пароль можно поменять через:
+
+```
+SET PASSWORD = PASSWORD('пароль')
+```
+
+Пароль определенного пользователя можно поменять через:
+```
+SET PASSWORD FOR логин@localhost = PASSWORD('пароль');
+```
+```
+SET PASSWORD FOR логин@"%" = PASSWORD('пароль');
+```
+
+тоже самое делают:
+
+```
+UPDATE mysql.user SET Password=PASSWORD('пароль') WHERE User='логин' AND Host='localhost';
+
+FLUSH PRIVILEGES;
+```
+
+или `GRANT USAGE ON БД.* TO логин@localhost IDENTIFIED BY 'пароль';``
+или `mysqladmin -u логин password пароль`
