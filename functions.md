@@ -216,3 +216,17 @@ WHERE TransactionID < 125;
 | NOT      | Отображает запись, если условие (ы) не соответствует действительности |      |
 | OR       | Значение true, если любое из условий, разделенных или истинно |      |
 | SOME     | Значение true, если любой из значений подчиненного запроса удовлетворяет условию |      |
+
+## Как посмотреть список таблиц и их структуру в MySQL
+
+`SHOW DATABASES;` - список баз данных
+`SHOW TABLES [FROM db_name];` -  список таблиц в базе
+`SHOW COLUMNS FROM таблица [FROM db_name];` - список столбцов в таблице
+`SHOW CREATE TABLE table_name;` - показать структуру таблицы в формате "CREATE TABLE"
+`SHOW INDEX FROM tbl_name;` - список индексов
+`SHOW GRANTS FOR user [FROM db_name];` - привилегии для пользователя.
+
+`SHOW VARIABLES;` - значения системных переменных
+`SHOW [FULL] PROCESSLIST;` - статистика по mysqld процессам
+`SHOW STATUS;` - общая статистика
+`SHOW TABLE STATUS [FROM db_name];` - статистика по всем таблицам в базе
