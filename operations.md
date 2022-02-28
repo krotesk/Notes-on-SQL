@@ -44,3 +44,9 @@ SELECT * FROM tablename GROUP BY column_name;
 ```
 
 Результатом будет или сложение или иная функция (среднее, минимальное, максимальное) для одноименных объектов в данном столбце.
+
+## Изменение типа данных для столбца
+
+```
+ALTER TABLE tablename MODIFY columnname <datetype>;
+```
