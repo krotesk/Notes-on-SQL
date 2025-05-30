@@ -16,6 +16,65 @@ mysql -u root -p
 ```
 mysql>
 ```
+## Создание базы данных
+
+```
+CREATE DATABASE new_database;
+```
+
+Удалить можно командой:
+
+```
+DROP DATABASE new_database;
+```
+
+## Таблицы
+
+```
+CREATE TABLE Staff (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    position VARCHAR(30),
+    birthday DATE NOT NULL,
+    has_children BOOLEAN DEFAULT(FALSE) NOT NULL
+);
+```
+Создание таблицы на основе уже существующей таблицы. Копирует структуру — количество, названия и типы столбцов, индексы, все ограничения, кроме внешних ключей. Как мы помним, внешний ключ создает индекс. При создании через LIKE индексы в новой таблице будут построены также, как и в старой, но внешние ключи не скопируются. Таблица будет создана без записей и без счетчиков AUTO_INCREMENT.
+
+```
+CREATE TABLE new_table LIKE source_table;
+```
+
+Получить данные для "клонирования" таблицы:
+
+```
+SHOW CREATE TABLE table_name;
+```
+
+Изменить название столбца:
+
+```
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+```
+
+Удалить все данные из таблицы:
+
+DELETE FROM Staff;
+
+Полная очистка таблицы, включая счетчики даже инкрементные:
+
+```
+TRUNCATE TABLE Staff;
+```
+
+Удалить таблицу целиком:
+
+```
+DROP TABLE table_name;
+```
+
+## Создание пользователя
 
 Вообще, эта статья про права доступа. Но на всякий случай вот тебе синтаксис команды, которая позволит создать нового пользователя с паролем в MySQL:
 
@@ -72,7 +131,13 @@ GRANT DROP ON easybro.* TO 'example'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-Как посмотреть права определенного пользователя в MySQL
+Для полного доступа:
+
+```
+GRANT ALL PRIVILEGES ON new_database.* TO 'example'@'%' WITH GRANT OPTION;
+```
+
+### Как посмотреть права определенного пользователя в MySQL
 
 Посмотреть права очень просто. Опять же, на примере нашего юзера example:
 
